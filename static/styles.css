@@ -1,0 +1,529 @@
+/* This code was cleaned up and made easier to read by an AI. */ 
+:root {
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust: #11111b;
+    --text: #cdd6f4;
+    --subtext1: #bac2de;
+    --subtext0: #a6adc8;
+    --surface2: #585b70;
+    --surface1: #45475a;
+    --surface0: #313244;
+    --overlay0: #6c7086;
+    --blue: #89b4fa;
+    --lavender: #b4befe;
+    --sapphire: #74c7ec;
+    --sky: #89dceb;
+    --teal: #94e2d5;
+    --green: #a6e3a1;
+    --peach: #fab387;
+    --mauve: #cba6f7;
+    --pink: #f5c2e7;
+    --rosewater: #f5e0dc;
+    --sidebar-width: 320px;
+    --mobile-breakpoint: 768px;
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --base: #eff1f5;
+    --mantle: #e6e9ef;
+    --crust: #dce0e8;
+    --text: #4c4f69;
+    --subtext1: #5c5f77;
+    --subtext0: #6c6f85;
+    --surface2: #acb0be;
+    --surface1: #bcc0cc;
+    --surface0: #ccd0da;
+    --overlay0: #9ca0b0;
+    --blue: #1e66f5;
+    --lavender: #7287fd;
+    --sapphire: #209fb5;
+    --sky: #04a5e5;
+    --teal: #179299;
+    --green: #40a02b;
+    --peach: #fe640b;
+    --mauve: #8839ef;
+    --pink: #ea76cb;
+    --rosewater: #dc8a78;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--base);
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    max-width: 100vw;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--mantle);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--surface0);
+    z-index: 100;
+    height: 100vh;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--surface0);
+}
+
+.sidebar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--mauve);
+}
+
+.theme-switcher {
+    margin-top: 1rem;
+}
+
+.theme-toggle-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--surface0);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: var(--text);
+    transition: background-color 0.2s ease;
+    min-height: 44px;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--surface1);
+}
+
+.new-note-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--mauve);
+    color: var(--base);
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.new-note-btn:hover {
+    background: var(--pink);
+    transform: translateY(-1px);
+}
+
+.notes-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.note-item {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: var(--surface0);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.note-item:hover {
+    background: var(--surface1);
+    border-color: var(--lavender);
+}
+
+.delete-btn {
+    padding: 0.4rem 0.8rem;
+    background: var(--peach);
+    color: var(--base);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.delete-btn:hover {
+    background: var(--rosewater);
+}
+
+.editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--base);
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.editor-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    max-width: 100%;
+}
+
+.editor-header {
+    margin-bottom: 1.5rem;
+}
+
+#titleInput {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--surface0);
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#titleInput:focus {
+    outline: none;
+    border-bottom-color: var(--mauve);
+}
+
+.editor-workspace {
+    flex: 1;
+    position: relative;
+    padding: 1rem;
+    display: flex;
+}
+
+.markdown-editor {
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    background: var(--mantle);
+    border: 2px solid var(--surface0);
+    border-radius: 1rem;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: all 0.2s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+}
+
+.markdown-editor:focus {
+    outline: none;
+    border-color: var(--mauve);
+}
+
+.markdown-preview {
+    display: none;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 1.5rem;
+    background: var(--mantle);
+    border: 2px solid var(--surface0);
+    border-radius: 1rem;
+    color: var(--text);
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    pointer-events: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.markdown-preview.active {
+    display: block;
+}
+
+.save-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--green);
+    color: var(--base);
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+    min-height: 44px;
+}
+
+.save-btn:hover {
+    background: var(--teal);
+    transform: translateY(-1px);
+}
+
+.version-info {
+    padding: 1rem;
+    text-align: center;
+    color: var(--subtext0);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--surface0);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--mantle);
+    padding: 2rem;
+    border-radius: 1rem;
+    min-width: 300px;
+    max-width: 90%;
+    border: 2px solid var(--surface0);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.modal-content h3 {
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    color: var(--subtext1);
+    margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.delete-confirm-btn {
+    padding: 0.5rem 1rem;
+    background: var(--peach);
+    color: var(--base);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.delete-cancel-btn {
+    padding: 0.5rem 1rem;
+    background: var(--surface0);
+    color: var(--text);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.delete-confirm-btn:hover {
+    background: var(--rosewater);
+}
+
+.delete-cancel-btn:hover {
+    background: var(--surface1);
+}
+
+.mobile-menu-trigger {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 102;
+    padding: 0.75rem;
+    background: var(--surface0);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--text);
+    cursor: pointer;
+    min-height: 44px;
+    transition: all 0.2s ease;
+}
+
+.mobile-menu-trigger:hover {
+    background: var(--surface1);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--mantle);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--surface2);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-trigger {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 85%;
+        max-width: 320px;
+        transform: translateX(-100%);
+        box-shadow: none;
+        z-index: 101;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar.mobile-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
+
+    .editor {
+        width: 100%;
+    }
+
+    .editor-content {
+        padding: 1rem;
+    }
+
+    #titleInput {
+        font-size: 1.25rem;
+        padding: 0.75rem;
+    }
+
+    .markdown-editor {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 320px;
+        margin: 0 1rem;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+    }
+
+    .app-title {
+        font-size: 1.25rem;
+    }
+
+    .version-info {
+        font-size: 0.75rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .editor-content {
+        padding: 1.5rem;
+    }
+}
+
+@media (hover: none) {
+    .note-item:hover,
+    .new-note-btn:hover,
+    .theme-toggle-btn:hover,
+    .delete-btn:hover,
+    .save-btn:hover {
+        transform: none;
+    }
+
+    .note-item:active,
+    .new-note-btn:active,
+    .theme-toggle-btn:active,
+    .delete-btn:active,
+    .save-btn:active {
+        opacity: 0.8;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

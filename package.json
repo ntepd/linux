@@ -1,0 +1,39 @@
+{
+  "name": "ntepd",
+  "version": "1.0.0",
+  "description": "ntepd is a simple tool to help you manage your notes.",
+  "author": "Layeredy Software, ntepd team, and contributors",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.lyrdy.ntepd",
+    "icon": "templates/images/ntepd.png",
+    "linux": {
+      "target": ["AppImage"],
+      "category": "Utility"
+    },
+    "files": [
+      "**/*"
+    ],
+    "asarUnpack": [
+      "app.py",
+      "requirements.txt",
+      "setup.sh",
+      "templates/**/*",
+      "static/**/*",
+      "venv/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  }
+}
