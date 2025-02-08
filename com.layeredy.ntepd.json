@@ -1,0 +1,68 @@
+{
+    "app-id": "com.layeredy.ntepd",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "23.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "ntepd-wrapper",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--filesystem=home",
+        "--device=dri",
+        "--socket=session-bus"
+    ],
+    "modules": [
+        {
+            "name": "nodejs",
+            "buildsystem": "simple",
+            "build-commands": [
+                "tar xf node-v20.11.0-linux-x64.tar.xz",
+                "cp -r node-v20.11.0-linux-x64/* /app/"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz",
+                    "sha256": "822780369d0ea309e7d218e41debbd1a03f8cdf354ebf8a4420e89f39cc2e612"
+                }
+            ]
+        },
+        {
+            "name": "python3",
+            "buildsystem": "simple",
+            "build-commands": [
+                "python3 -m pip install --prefix=/app flask"
+            ],
+            "build-options": {
+                "build-args": ["--share=network"]
+            }
+        },
+        {
+            "name": "ntepd",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/bin /app/share/ntepd/src",
+                "cp -rv ./src/* /app/share/ntepd/src/",
+                "cp -rv ./package.json /app/share/ntepd/",
+                "cp -rv ./node_modules /app/share/ntepd/",
+                "install -Dm755 ./src/backend/app.py /app/share/ntepd/src/backend/app.py",
+                "echo '#!/bin/sh' > /app/bin/ntepd-wrapper",
+                "echo 'export ELECTRON_DISABLE_SANDBOX=1' >> /app/bin/ntepd-wrapper",
+                "echo 'pkill -f \"python3.*app.py\"' >> /app/bin/ntepd-wrapper",
+                "echo 'sleep 1' >> /app/bin/ntepd-wrapper",
+                "echo 'cd /app/share/ntepd && python3 /app/share/ntepd/src/backend/app.py --electron &' >> /app/bin/ntepd-wrapper",
+                "echo 'cd /app/share/ntepd && ./node_modules/.bin/electron .' >> /app/bin/ntepd-wrapper",
+                "chmod +x /app/bin/ntepd-wrapper"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": ".",
+                    "skip": ["build-dir", ".flatpak-builder"]
+                }
+            ]
+        }
+    ]
+}

@@ -1,6 +1,2 @@
 node_modules/
-venv/
-.env
-dist/
-__pycache__/
-*.pyc
+flatpak/
