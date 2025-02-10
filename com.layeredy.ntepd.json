@@ -44,17 +44,28 @@
             "buildsystem": "simple",
             "build-commands": [
                 "mkdir -p /app/bin /app/share/ntepd/src",
+                "mkdir -p /app/share/icons/hicolor/256x256/apps",
+                "mkdir -p /app/share/icons/hicolor/128x128/apps",
+                "mkdir -p /app/share/icons/hicolor/64x64/apps",
+                "mkdir -p /app/share/applications",
+                "mkdir -p /app/share/metainfo",
                 "cp -rv ./src/* /app/share/ntepd/src/",
                 "cp -rv ./package.json /app/share/ntepd/",
                 "cp -rv ./node_modules /app/share/ntepd/",
                 "install -Dm755 ./src/backend/app.py /app/share/ntepd/src/backend/app.py",
+                "install -Dm644 ./src/assets/icon.png /app/share/icons/hicolor/256x256/apps/com.layeredy.ntepd.png",
+                "install -Dm644 ./src/assets/icon.png /app/share/icons/hicolor/128x128/apps/com.layeredy.ntepd.png",
+                "install -Dm644 ./src/assets/icon.png /app/share/icons/hicolor/64x64/apps/com.layeredy.ntepd.png",
+                "install -Dm644 ./com.layeredy.ntepd.metainfo.xml /app/share/metainfo/com.layeredy.ntepd.metainfo.xml",
+                "echo '[Desktop Entry]\nName=ntepd\nComment=A minimalist notepad\nExec=ntepd-wrapper\nIcon=com.layeredy.ntepd\nType=Application\nCategories=Utility;TextEditor;Development;\nMimeType=text/plain;text/markdown;\nKeywords=notepad;text;editor;notes;writing;\nVersion=1.0.0' > /app/share/applications/com.layeredy.ntepd.desktop",
                 "echo '#!/bin/sh' > /app/bin/ntepd-wrapper",
                 "echo 'export ELECTRON_DISABLE_SANDBOX=1' >> /app/bin/ntepd-wrapper",
                 "echo 'pkill -f \"python3.*app.py\"' >> /app/bin/ntepd-wrapper",
                 "echo 'sleep 1' >> /app/bin/ntepd-wrapper",
                 "echo 'cd /app/share/ntepd && python3 /app/share/ntepd/src/backend/app.py --electron &' >> /app/bin/ntepd-wrapper",
                 "echo 'cd /app/share/ntepd && ./node_modules/.bin/electron .' >> /app/bin/ntepd-wrapper",
-                "chmod +x /app/bin/ntepd-wrapper"
+                "chmod +x /app/bin/ntepd-wrapper",
+                "chmod 644 /app/share/applications/com.layeredy.ntepd.desktop"
             ],
             "sources": [
                 {

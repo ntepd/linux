@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.layeredy.ntepd</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>ntepd</name>
+  <summary>A minimalist notepad</summary>
+  <developer_name>Layeredy Software</developer_name>
+  
+  <description>
+    <p>ntepd is a clean and simple notepad application that focuses on providing a distraction-free writing environment.</p>
+    <p>Features:</p>
+    <ul>
+      <li>Clean, minimal interface</li>
+      <li>Distraction-free writing experience</li>
+      <li>Markdown editing and preview</li>
+    </ul>
+  </description>
+  
+  <launchable type="desktop-id">com.layeredy.ntepd.desktop</launchable>
+  
+  <screenshots>
+    <screenshot type="default">
+      <image>https://cdn.layeredy.com/ntepd-bg.png</image>
+      <caption>Main area for ntepd</caption>
+    </screenshot>
+  </screenshots>
+  
+  <url type="homepage">https://ntepd.com</url>
+  <url type="bugtracker">https://github.com/ntepd/linux/issues</url>
+  <url type="contribute">https://github.com/ntepd/linux/pulls</url>
+  <url type="vcs-browser">https://github.com/ntepd</url>
+  
+  <provides>
+    <binary>ntepd-wrapper</binary>
+  </provides>
+  
+  <releases>
+    <release version="1.0.1" date="2025-02-09">
+      <description>
+        <p>Initial release of ntepd for Linux with flatpak support</p>
+        <ul>
+          <li>Full details on our Github (ntepd)</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+  </content_rating>
+  
+  <categories>
+    <category>Utility</category>
+    <category>TextEditor</category>
+    <category>Development</category>
+  </categories>
+  
+  <keywords>
+    <keyword>notepad</keyword>
+    <keyword>text editor</keyword>
+    <keyword>notes</keyword>
+    <keyword>writing</keyword>
+  </keywords>
+</component>

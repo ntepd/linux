@@ -6,14 +6,11 @@ import sys
 import logging
 from pathlib import Path
 
-# Get the directory containing app.py
 BACKEND_DIR = Path(__file__).resolve().parent
-# Frontend directory is at src/frontend relative to the app root
 FRONTEND_DIR = BACKEND_DIR.parent / 'frontend'
 
 app = Flask(__name__, static_folder=str(FRONTEND_DIR))
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -29,7 +26,6 @@ def get_data_dir():
         notes_dir = base_dir / 'notes'
         notes_dir.mkdir(parents=True, exist_ok=True)
         
-        # Test write permissions
         test_file = notes_dir / '.write_test'
         test_file.touch()
         test_file.unlink()
@@ -42,7 +38,6 @@ def get_data_dir():
         logger.error(f"Error setting up data directory: {e}")
         raise
 
-# Set up the notes directory
 NOTES_DIR = get_data_dir()
 NOTES_DIR.mkdir(parents=True, exist_ok=True)
 logger.info(f"Using notes directory: {NOTES_DIR}")
@@ -158,14 +153,11 @@ def get_status():
     })
 
 def main():
-    # Check if running as Electron app
     is_electron = '--electron' in sys.argv
     
     if is_electron:
-        # When running in Electron, only listen on localhost
         app.run(host='127.0.0.1', port=3547, debug=False)
     else:
-        # Standard development mode
         app.run(debug=True, port=3547)
 
 logger.info(f"Using notes directory: {NOTES_DIR}")
